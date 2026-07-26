@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Fetch data from api using web workers. Open console (press fn + f12)</h1>
+    <script>
+        const worker = new Worker("worker.js");
+        worker.postMessage("start");
+
+        worker.onmessage = function (event) {
+            const result = event.data;
+
+            if (result.error) {
+                console.error(result.error);
+            } else {
+                result.data.forEach(function (line) {
+                    console.log(line);
+                });
+            }
+        };
+    </script>
+</body>
+</html>
